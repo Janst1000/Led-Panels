@@ -1,0 +1,33 @@
+{
+    "configurations": [
+        {
+            "name": "Win32",
+            "includePath": [
+                "C:/Program Files (x86)/Arduino/libraries/**",
+                "C:/Program Files (x86)/Arduino/hardware/arduino/avr/cores/arduino/**",
+                "C:/Program Files (x86)/Arduino/hardware/tools/avr/avr/include/**",
+                "C:/Program Files (x86)/Arduino/hardware/tools/avr/include/**",
+                "C:/Program Files (x86)/Arduino/hardware/arduino/avr/variants/standard/**",
+                "C:/Users/janst/Documents/Arduino/libraries/**",
+                "${workspaceFolder}"
+            ],
+            "defines": [
+                "_DEBUG",
+                "UNICODE",
+                "_UNICODE"
+            ],
+            "browse": {
+                "limitSymbolsToIncludedHeaders": false,
+                "path":[
+                    "C:\\Program Files (x86)\\Arduino\\libraries",
+                    "C:\\Program Files (x86)\\Arduino\\hardware\\tools\\avr\\avr\\include",
+                    "C:\\Users\\janst\\Documents\\Arduino\\libraries",
+                    "C:\\Users\\janst\\Coding\\projects\\Arduino",
+                    "${workspaceRoot}"
+                ]
+            },
+            "intelliSenseMode": "msvc-x64"
+        }
+    ],
+    "version": 4
+}
