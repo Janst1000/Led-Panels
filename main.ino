@@ -10,7 +10,7 @@ const uint8_t pheigth = 5;
 
 CRGB leds[NUM_LEDS];
 
-#include "panel.h"
+#include "Panel.h"
 
 
 int XY(uint8_t x, uint8_t y){
@@ -63,9 +63,8 @@ void loop(){
         delay(500);
     }
 */
-Panels[3][5].setFullPanel(leds, 255, 255, 255);
+
 FastLED.show();
-/*
     for(int x = 0; x < pwidth; x++){
         for (int y = 0; y < pheigth; y++){
             Panels[x][y].setFullPanel(leds, 255, 255, 255);
@@ -83,4 +82,3 @@ FastLED.show();
   
     
 }
-*/
