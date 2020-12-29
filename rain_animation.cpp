@@ -11,6 +11,10 @@ uint8_t Droplet::getY(){
     return y;
 }
 
+CRGB Droplet::getColor(){
+    return color;
+}
+
 /*parametric constructors*/
 Droplet::Droplet(uint8_t nx, uint8_t ny, CRGB nc){
     x = nx;
@@ -33,20 +37,7 @@ Droplet::Droplet(){
 void Droplet::update(){
     //for(int i = y, i < pheigth, i++){
         color.fadeToBlackBy(128);
-        Panels[x][y].setFullPanel(leds, color);
     //}
     
 }
 
-void rain(int delay_time, CRGB color){
-    randomSeed(millis());
-    Droplet d(0, color);
-    Panels[d.getX()][d.getY()].setFullPanel(leds, color);
-    FastLED.show();
-    delay(delay_time);
-    for(int i = 0; i < 4; i++){
-        delay(delay_time);
-        d.update();
-        FastLED.show();
-    }
-}

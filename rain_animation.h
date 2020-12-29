@@ -18,8 +18,8 @@ class Droplet{
         void update();
         uint8_t getX();
         uint8_t getY();
+        CRGB getColor();
 };
 
-void rain(int delay_time, CRGB color);
 
 #endif
