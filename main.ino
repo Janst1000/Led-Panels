@@ -1,5 +1,6 @@
 #include <FastLED.h>
 #include "Panel.h"
+#include "rain_animation.h"
 
 #define NUM_LEDS 75
 #define DATA_PIN 5
@@ -39,7 +40,7 @@ const uint8_t PanelsTable[pwidth][pheigth][LED_PER_PANEL] = {
 
 
 Panel Panels[pwidth][pheigth];
-#include "rain_animation.h"
+
 
 void setup(){
 
