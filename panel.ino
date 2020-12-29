@@ -28,3 +28,16 @@ void Panel::setFullPanel(CRGB* leds, uint8_t r, uint8_t g, uint8_t b){
     leds[second] = CRGB(r, g, b);
     leds[third] = CRGB(r, g, b);
 }
+
+void Panel::setFullPanel(CRGB* leds, CRGB color){
+    leds[first] = color;
+    leds[second] = color;
+    leds[third] = color;
+}
+
+/*turns off all leds*/
+void Panel::off(){
+    leds[first] = 0;
+    leds[second] = 0;
+    leds[third] = 0;
+}
