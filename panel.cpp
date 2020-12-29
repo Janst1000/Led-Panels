@@ -36,7 +36,7 @@ void Panel::setFullPanel(CRGB* leds, CRGB color){
 }
 
 /*turns off all leds*/
-void Panel::off(){
+void Panel::off(CRGB* leds){
     leds[first] = 0;
     leds[second] = 0;
     leds[third] = 0;

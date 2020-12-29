@@ -1,4 +1,5 @@
 #include <FastLED.h>
+#include "Panel.h"
 
 #define NUM_LEDS 75
 #define DATA_PIN 5
@@ -10,7 +11,7 @@ const uint8_t pheigth = 5;
 
 CRGB leds[NUM_LEDS];
 
-#include "Panel.h"
+
 
 
 int XY(uint8_t x, uint8_t y){
@@ -38,7 +39,7 @@ const uint8_t PanelsTable[pwidth][pheigth][LED_PER_PANEL] = {
 
 
 Panel Panels[pwidth][pheigth];
-
+#include "rain_animation.h"
 
 void setup(){
 
@@ -50,12 +51,13 @@ void setup(){
         Panels[x][y].setLedPanel(PanelsTable[x][y][0], PanelsTable[x][y][1], PanelsTable[x][y][2]);
         }
     }
-    Panels[1][1].setFullPanel(leds, 255, 0, 0);
+    //Panels[1][1].setFullPanel(leds, 255, 0, 0);
     delay(500);
 
 }
 
 void loop(){
+    rain(500, CRGB(0x0000FF));
 /*
     for(int i = 45; i < NUM_LEDS; i++){
         leds[i] = CRGB(255, 000, 000);
@@ -63,7 +65,7 @@ void loop(){
         delay(500);
     }
 */
-
+/*
 FastLED.show();
     for(int x = 0; x < pwidth; x++){
         for (int y = 0; y < pheigth; y++){
@@ -81,4 +83,6 @@ FastLED.show();
     }
   
     
+}
+*/
 }
