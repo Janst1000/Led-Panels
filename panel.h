@@ -1,5 +1,6 @@
 #ifndef _PANEL_H_
 #define _PANEL_H_
+#define FASTLED_INTERNAL
 #include <FastLED.h>
 
 class Panel{

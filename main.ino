@@ -1,3 +1,4 @@
+#define FASTLED_INTERNAL
 #include <FastLED.h>
 #include "Panel.h"
 
@@ -57,7 +58,6 @@ void setup(){
 }
 
 void loop(){
-    rain(500, CRGB(0x0000FF));
 /*
     for(int i = 45; i < NUM_LEDS; i++){
         leds[i] = CRGB(255, 000, 000);
@@ -65,8 +65,6 @@ void loop(){
         delay(500);
     }
 */
-/*
-FastLED.show();
     for(int x = 0; x < pwidth; x++){
         for (int y = 0; y < pheigth; y++){
             Panels[x][y].setFullPanel(leds, 255, 255, 255);
@@ -83,6 +81,4 @@ FastLED.show();
     }
   
     
-}
-*/
 }

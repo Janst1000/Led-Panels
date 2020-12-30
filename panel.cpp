@@ -1,3 +1,4 @@
+#define FASTLED_INTERNAL
 #include "Panel.h"
 #include "FastLED.h"
 
