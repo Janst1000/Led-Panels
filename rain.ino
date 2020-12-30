@@ -7,7 +7,8 @@ void rain_init(){
 }
 
 void rain(){
-    fadeToBlackBy(leds, NUM_LEDS, 220);
+    fadeToBlackBy(leds, NUM_LEDS, 20);
+    offAtBrigthness();
     /*go through all elements and shift the 1s down by one*/
     for(uint8_t y = 0; y < pheigth; y++){
         for(uint8_t x = 0; x < pwidth; x++){
@@ -30,4 +31,14 @@ void new_droplet(CRGB color){
     rain_array[4][randx] = CRGB(color);
     Serial.println(randx);
     Panels[4][randx].setFullPanel(leds, color);
+}
+
+void offAtBrigthness(){
+    for(uint8_t y = 0; y < pheigth; y++){
+        for(uint8_t x = 0; x < pwidth; x++){
+            if(leds[Panels[y][x].getFirst()].getAverageLight() < 127){
+                Panels[y][x].off(leds);
+            }
+        }
+    }
 }
