@@ -1,6 +1,7 @@
 #define FASTLED_INTERNAL
 #include <FastLED.h>
 #include "Panel.h"
+#include <time.h>
 
 #define NUM_LEDS 75
 #define DATA_PIN 5
@@ -12,6 +13,8 @@ const uint8_t pheigth = 5;
 
 CRGB leds[NUM_LEDS];
 
+bool rain_array[pwidth][pheigth];
+int cnt = 0;
 
 
 
@@ -53,21 +56,23 @@ void setup(){
         }
     }
     //Panels[1][1].setFullPanel(leds, 255, 0, 0);
-    delay(500);
-
+    rain_init();
+    randomSeed(millis());
+    Serial.begin(115200);
 }
 
 void loop(){
+    
 /*
     for(int i = 45; i < NUM_LEDS; i++){
         leds[i] = CRGB(255, 000, 000);
         FastLED.show();
         delay(500);
     }
-*/
-    for(int x = 0; x < pwidth; x++){
-        for (int y = 0; y < pheigth; y++){
-            Panels[x][y].setFullPanel(leds, 0, 255, 0);
+*//*
+    for(int y = 0; y < pwidth; y++){
+        for (int x = 0; x < pheigth; x++){
+            Panels[y][x].setFullPanel(leds, 0, 255, 0);
             
             //Panels[x-1][y].setFullPanel(leds, 0,0,0);
             FastLED.show();
@@ -76,11 +81,18 @@ void loop(){
             for(int i = 0; i < NUM_LEDS; i++){
                 leds[i] = 0;
             }
-            FastLED.show();*/
+            FastLED.show();
             fadeToBlackBy(leds, NUM_LEDS, 170);
         }
         
+    }*/
+    rain();
+    if((cnt % 3) == 0){
+        new_droplet();
     }
+    FastLED.show();
+    delay(150);
+    cnt++;
     
     
 }
