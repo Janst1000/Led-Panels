@@ -67,18 +67,20 @@ void loop(){
 */
     for(int x = 0; x < pwidth; x++){
         for (int y = 0; y < pheigth; y++){
-            Panels[x][y].setFullPanel(leds, 255, 255, 255);
+            Panels[x][y].setFullPanel(leds, 0, 255, 0);
             
             //Panels[x-1][y].setFullPanel(leds, 0,0,0);
             FastLED.show();
-            delay(200);
+            delay(100);
+            /*
             for(int i = 0; i < NUM_LEDS; i++){
                 leds[i] = 0;
             }
-            FastLED.show();
+            FastLED.show();*/
+            fadeToBlackBy(leds, NUM_LEDS, 170);
         }
         
     }
-  
+    
     
 }
