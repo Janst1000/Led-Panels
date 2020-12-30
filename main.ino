@@ -1,6 +1,5 @@
 #include <FastLED.h>
 #include "Panel.h"
-#include "rain_animation.h"
 
 #define NUM_LEDS 75
 #define DATA_PIN 5
