@@ -13,7 +13,7 @@ const uint8_t pheigth = 5;
 
 CRGB leds[NUM_LEDS];
 
-bool rain_array[pwidth][pheigth];
+CRGB rain_array[pwidth][pheigth];
 int cnt = 0;
 
 
@@ -88,7 +88,7 @@ void loop(){
     }*/
     rain();
     if((cnt % 3) == 0){
-        new_droplet();
+        new_droplet(CHSV(random(0, 256), 255, 255));
     }
     FastLED.show();
     delay(150);

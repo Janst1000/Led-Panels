@@ -11,11 +11,12 @@ void rain(){
     /*go through all elements and shift the 1s down by one*/
     for(uint8_t y = 0; y < pheigth; y++){
         for(uint8_t x = 0; x < pwidth; x++){
-            if(rain_array[y][x] == 1){
+            if(rain_array[y][x] != CRGB(0)){
+                CRGB temp = rain_array[y][x];
                 rain_array[y][x] = 0;
                 if(y != 0){
-                    rain_array[y-1][x] = 1;
-                    Panels[y-1][x].setFullPanel(leds, 0, 255, 0);
+                    rain_array[y-1][x] = temp;
+                    Panels[y-1][x].setFullPanel(leds, temp);
                 }
             }
         }
@@ -24,9 +25,9 @@ void rain(){
     
 }
 
-void new_droplet(){
+void new_droplet(CRGB color){
     uint8_t randx = random(5);
-    rain_array[4][randx] = 1;
+    rain_array[4][randx] = CRGB(color);
     Serial.println(randx);
-    Panels[4][randx].setFullPanel(leds, 0, 255, 0);
+    Panels[4][randx].setFullPanel(leds, color);
 }
