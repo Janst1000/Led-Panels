@@ -42,6 +42,7 @@ const uint8_t PanelsTable[pwidth][pheigth][LED_PER_PANEL] = {
 Panel Panels[pwidth][pheigth];
 
 uint8_t gHue = 0;
+int phase_shift=0;
 
 void setup(){
 
@@ -84,7 +85,7 @@ void loop(){
         
     }
     */
-   FastLED.delay(1000/60);
-    rainbow();
-    EVERY_N_MILLIS( 20 ){gHue++;}
+    FastLED.delay(1000/60);
+    rainbow_animation(leds, phase_shift);
+    EVERY_N_MILLISECONDS( 20 ){phase_shift++;}
 }
