@@ -41,6 +41,7 @@ const uint8_t PanelsTable[pwidth][pheigth][LED_PER_PANEL] = {
 
 Panel Panels[pwidth][pheigth];
 
+uint8_t gHue = 0;
 
 void setup(){
 
@@ -65,6 +66,7 @@ void loop(){
         delay(500);
     }
 */
+/*
     for(int x = 0; x < pwidth; x++){
         for (int y = 0; y < pheigth; y++){
             Panels[x][y].setFullPanel(leds, 0, 255, 0);
@@ -76,11 +78,13 @@ void loop(){
             for(int i = 0; i < NUM_LEDS; i++){
                 leds[i] = 0;
             }
-            FastLED.show();*/
+            FastLED.show();
             fadeToBlackBy(leds, NUM_LEDS, 170);
         }
         
     }
-    
-    
+    */
+   FastLED.delay(1000/60);
+    rainbow();
+    EVERY_N_MILLIS( 20 ){gHue++;}
 }
