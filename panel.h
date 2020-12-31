@@ -15,6 +15,7 @@ class Panel{
         void setFullPanel(CRGB* leds,uint8_t r,uint8_t g,uint8_t b);
         void setFullPanel(CRGB* leds, CRGB color);
         void off(CRGB* leds);
+        uint8_t getFirst();
 };
 
 #endif

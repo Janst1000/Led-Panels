@@ -16,6 +16,10 @@ Panel::Panel(uint8_t f, uint8_t s, uint8_t t){
     third = t;
 }
 
+uint8_t Panel::getFirst(){
+    return first;
+}
+
 /*sets led info of Panel*/
 void Panel::setLedPanel(uint8_t f, uint8_t s, uint8_t t){
     first = f;
