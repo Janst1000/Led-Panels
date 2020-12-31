@@ -7,8 +7,7 @@ void rain_init(){
 }
 
 void rain(){
-    fadeToBlackBy(leds, NUM_LEDS, 20);
-    offAtBrigthness();
+    fadeToBlackBy(leds, NUM_LEDS, 150);//150 good value
     /*go through all elements and shift the 1s down by one*/
     for(uint8_t y = 0; y < pheigth; y++){
         for(uint8_t x = 0; x < pwidth; x++){
@@ -36,7 +35,7 @@ void new_droplet(CRGB color){
 void offAtBrigthness(){
     for(uint8_t y = 0; y < pheigth; y++){
         for(uint8_t x = 0; x < pwidth; x++){
-            if(leds[Panels[y][x].getFirst()].getAverageLight() < 127){
+            if(leds[Panels[y][x].getFirst()].getAverageLight() < 42){
                 Panels[y][x].off(leds);
             }
         }
