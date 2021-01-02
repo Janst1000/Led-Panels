@@ -45,6 +45,7 @@ const uint8_t PanelsTable[pwidth][pheigth][LED_PER_PANEL] = {
 Panel Panels[pwidth][pheigth];
 
 int phase_shift=0;
+int pattern=0;
 
 void setup(){
 
@@ -63,52 +64,32 @@ void setup(){
 }
 
 void loop(){
-    
-/*
-    for(int i = 45; i < NUM_LEDS; i++){
-        leds[i] = CRGB(255, 000, 000);
-        FastLED.show();
-        delay(500);
-    }
-<<<<<<< HEAD
-*/
-/*
-    for(int x = 0; x < pwidth; x++){
-        for (int y = 0; y < pheigth; y++){
-            Panels[x][y].setFullPanel(leds, 0, 255, 0);
-=======
-*//*
-    for(int y = 0; y < pwidth; y++){
-        for (int x = 0; x < pheigth; x++){
-            Panels[y][x].setFullPanel(leds, 0, 255, 0);
->>>>>>> rain
-            
-            //Panels[x-1][y].setFullPanel(leds, 0,0,0);
-            FastLED.show();
-            delay(100);
-            /*
-            for(int i = 0; i < NUM_LEDS; i++){
-                leds[i] = 0;
+    if(pattern == 1){
+        EVERY_N_MILLISECONDS(150){
+            rain();
+            if((cnt % 3) == 0){
+                new_droplet(CHSV(random(0, 256), 255, 255));
             }
-            FastLED.show();
-            fadeToBlackBy(leds, NUM_LEDS, 170);
+            cnt++;
         }
-        
-    }*/
-    rain();
-    if((cnt % 3) == 0){
-        new_droplet(CHSV(random(0, 256), 255, 255));
+        FastLED.delay(1000/60);
     }
-<<<<<<< HEAD
-    */
-    FastLED.delay(1000/60);
-    rainbow_animation(leds, phase_shift, 20);
-    EVERY_N_MILLISECONDS( 20 ){phase_shift++;}
-=======
-    FastLED.show();
-    delay(150);
-    cnt++;
-    
-    
->>>>>>> rain
+    if(pattern == 0){
+        FastLED.delay(1000/60);
+        rainbow_animation(leds, phase_shift, 40);
+        EVERY_N_MILLISECONDS( 20 ){phase_shift++;}
+    }
+    EVERY_N_SECONDS( 20 ){
+        if(pattern == 1){
+            pattern = 0;
+        } else {
+            pattern = 1;
+        }
+        for(uint8_t y = 0; y < pheigth; y++){
+            for (uint8_t x = 0; x < pwidth; x++){
+                Panels[y][x].off(leds);
+            }
+            
+        }
+    }
 }
