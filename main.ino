@@ -6,6 +6,7 @@
 #define NUM_LEDS 75
 #define DATA_PIN 5
 #define LED_PER_PANEL 3
+#define BRIGHTNESS 255
 const uint8_t width = 15;
 const uint8_t height = 5;
 const uint8_t pwidth = 5;
@@ -45,7 +46,7 @@ const uint8_t PanelsTable[pwidth][pheigth][LED_PER_PANEL] = {
 Panel Panels[pwidth][pheigth];
 
 int phase_shift=0;
-int pattern=0;
+int pattern=2;
 
 void setup(){
 
@@ -64,6 +65,18 @@ void setup(){
 }
 
 void loop(){
+    if(pattern == 2){
+        uint32_t ms = millis();
+        int32_t yHueDelta32 = ((int32_t)cos16( ms * (27/1) ) * (350 / pwidth));
+        int32_t xHueDelta32 = ((int32_t)cos16( ms * (39/1) ) * (310 / pheigth));
+        xydemo( ms / 65536, yHueDelta32 / 32768, xHueDelta32 / 32768);
+        if( ms < 5000 ) {
+        FastLED.setBrightness( scale8( BRIGHTNESS, (ms * 256) / 5000));
+        } else {
+        FastLED.setBrightness(BRIGHTNESS);
+        }
+        FastLED.show();
+    }
     if(pattern == 1){
         EVERY_N_MILLISECONDS(150){
             rain();
@@ -79,6 +92,7 @@ void loop(){
         rainbow_animation(leds, phase_shift, 40);
         EVERY_N_MILLISECONDS( 20 ){phase_shift++;}
     }
+    /*
     EVERY_N_SECONDS( 20 ){
         if(pattern == 1){
             pattern = 0;
@@ -92,4 +106,5 @@ void loop(){
             
         }
     }
+    */
 }
