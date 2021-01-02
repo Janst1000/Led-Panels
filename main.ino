@@ -46,7 +46,7 @@ const uint8_t PanelsTable[pwidth][pheigth][LED_PER_PANEL] = {
 Panel Panels[pwidth][pheigth];
 
 int phase_shift=0;
-int pattern=2;
+int pattern=0;
 
 void setup(){
 
@@ -76,9 +76,10 @@ void loop(){
         FastLED.setBrightness(BRIGHTNESS);
         }
         FastLED.show();
+        FastLED.delay(1000/60);
     }
     if(pattern == 1){
-        EVERY_N_MILLISECONDS(150){
+        EVERY_N_MILLISECONDS(100){
             rain();
             if((cnt % 3) == 0){
                 new_droplet(CHSV(random(0, 256), 255, 255));
@@ -90,14 +91,14 @@ void loop(){
     if(pattern == 0){
         FastLED.delay(1000/60);
         rainbow_animation(leds, phase_shift, 40);
-        EVERY_N_MILLISECONDS( 20 ){phase_shift++;}
+        EVERY_N_MILLISECONDS( 10 ){phase_shift++;}
     }
-    /*
+    
     EVERY_N_SECONDS( 20 ){
-        if(pattern == 1){
+        if(pattern == 2){
             pattern = 0;
         } else {
-            pattern = 1;
+            pattern++;
         }
         for(uint8_t y = 0; y < pheigth; y++){
             for (uint8_t x = 0; x < pwidth; x++){
@@ -106,5 +107,5 @@ void loop(){
             
         }
     }
-    */
+    
 }
