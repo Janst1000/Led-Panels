@@ -2,6 +2,8 @@
 #include <FastLED.h>
 #include "Panel.h"
 #include <time.h>
+#include "Animations.h"
+
 
 #define NUM_LEDS 75
 #define DATA_PIN 5
@@ -47,6 +49,7 @@ Panel Panels[pwidth][pheigth];
 
 int phase_shift=0;
 int pattern=3;
+CRGB temp_color  = CHSV(random(256), 255, 255);
 
 void setup(){
 
@@ -66,10 +69,14 @@ void setup(){
 
 void loop(){
     if(pattern == 3){
-        flush_animation(CHSV(random(0, 256), 255, 255), cnt);
+        flush_animation(temp_color, cnt);
         FastLED.show();
         FastLED.delay(1000/60);
-        EVERY_N_MILLISECONDS( 100 ){ cnt++; }
+        EVERY_N_MILLISECONDS( 75 ){ cnt++; }
+        EVERY_N_SECONDS(1) {
+            temp_color = CHSV(random(0, 256), 255, 255);
+            cnt = 0;
+        }
     }
     if(pattern == 2){   //xydemo
         uint32_t ms = millis();
