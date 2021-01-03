@@ -46,7 +46,7 @@ const uint8_t PanelsTable[pwidth][pheigth][LED_PER_PANEL] = {
 Panel Panels[pwidth][pheigth];
 
 int phase_shift=0;
-int pattern=0;
+int pattern=3;
 
 void setup(){
 
@@ -65,7 +65,13 @@ void setup(){
 }
 
 void loop(){
-    if(pattern == 2){
+    if(pattern == 3){
+        flush_animation(CHSV(random(0, 256), 255, 255), cnt);
+        FastLED.show();
+        FastLED.delay(1000/60);
+        EVERY_N_MILLISECONDS( 100 ){ cnt++; }
+    }
+    if(pattern == 2){   //xydemo
         uint32_t ms = millis();
         int32_t yHueDelta32 = ((int32_t)cos16( ms * (27/1) ) * (350 / pwidth));
         int32_t xHueDelta32 = ((int32_t)cos16( ms * (39/1) ) * (310 / pheigth));
@@ -78,7 +84,7 @@ void loop(){
         FastLED.show();
         FastLED.delay(1000/60);
     }
-    if(pattern == 1){
+    if(pattern == 1){   //rain
         EVERY_N_MILLISECONDS(100){
             rain();
             if((cnt % 3) == 0){
@@ -88,14 +94,14 @@ void loop(){
         }
         FastLED.delay(1000/60);
     }
-    if(pattern == 0){
+    if(pattern == 0){   //rainbow
         FastLED.delay(1000/60);
         rainbow_animation(leds, phase_shift, 40);
         EVERY_N_MILLISECONDS( 10 ){phase_shift++;}
     }
     
     EVERY_N_SECONDS( 20 ){
-        if(pattern == 2){
+        if(pattern == 3){
             pattern = 0;
         } else {
             pattern++;
@@ -106,6 +112,7 @@ void loop(){
             }
             
         }
+        cnt = 0;    //reset cnt variable to prevent overflow
     }
     
 }
