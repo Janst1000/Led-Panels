@@ -28,7 +28,6 @@ void rain(){
 void new_droplet(CRGB color){
     uint8_t randx = random(5);
     rain_array[4][randx] = CRGB(color);
-    Serial.println(randx);
     Panels[4][randx].setFullPanel(leds, color);
 }
 

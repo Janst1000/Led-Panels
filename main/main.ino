@@ -21,6 +21,8 @@ int cnt = 0;
 
 
 
+
+
 int XY(uint8_t x, uint8_t y){
     const uint8_t XY_TABLE[] = {
     0,   1,   2,   3,   4,   5,   6,   7,   8,   9,  10,  11,  12,  13,  14,
@@ -48,8 +50,9 @@ const uint8_t PanelsTable[pwidth][pheigth][LED_PER_PANEL] = {
 Panel Panels[pwidth][pheigth];
 
 int phase_shift=0;
-int pattern=3;
+int pattern=4;
 CRGB temp_color  = CHSV(random(256), 255, 255);
+bool frame_array[pwidth][pheigth];
 
 void setup(){
 
@@ -68,10 +71,22 @@ void setup(){
 }
 
 void loop(){
-    if(pattern == 3){
-        flush_animation(temp_color, cnt);
+    Serial.println(pattern);
+    if(pattern == 4){   //plop
+        Serial.println(cnt);
+        plop(temp_color, cnt, frame_array);
         FastLED.show();
         FastLED.delay(1000/60);
+        EVERY_N_MILLISECONDS( 100 ){ cnt++;}
+        EVERY_N_SECONDS(1){ 
+            temp_color = CHSV(random(256), 255, 255);
+            cnt = 0;
+            }
+    }
+    if(pattern == 3){   //flush
+        flush_animation(temp_color, cnt);
+        FastLED.show();
+        //FastLED.delay(1000/60);
         EVERY_N_MILLISECONDS( 75 ){ cnt++; }
         EVERY_N_SECONDS(1) {
             temp_color = CHSV(random(0, 256), 255, 255);
@@ -108,7 +123,7 @@ void loop(){
     }
     
     EVERY_N_SECONDS( 20 ){
-        if(pattern == 3){
+        if(pattern == 4){
             pattern = 0;
         } else {
             pattern++;
