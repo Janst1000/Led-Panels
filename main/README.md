@@ -1,5 +1,5 @@
-# LED-Pamels
-## Code to display animations on an LED Panel matrix
+# LED-Panels
+Code to display animations on an LED Panel matrix
 
 ### Libraries
 - FastLED.h
