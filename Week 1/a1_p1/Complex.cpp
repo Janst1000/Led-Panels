@@ -1,6 +1,6 @@
 /*
     CH-231-A
-    Complex.h
+    Complex.cpp
     Jan Steinmueller
     j.steinmueller@jacobs-university.de
 */
