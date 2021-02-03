@@ -9,31 +9,44 @@
 
 using namespace std;
 
+/*array_search function declaration*/
 template <class T>
 int array_search(T* arr, int n, T elem){
+	/*going through all elements of the array*/
 	for(int i = 0; i < n; i++){
+		/*checking if the current element is equal to the searched for*/
 		if( arr[i] == elem){
+			/*returning position*/
 			return i;
 		}
 	}
+	/*returning -1 for unsuccesful search*/
 	return -1;
 }
 
 int main(int argc, char** argv){
-	int int_array[5];
+	int arr_size = 5;
+	int int_array[arr_size];
+	Complex cmp_array[arr_size];
+
 
 	/*filling the integer array*/
-	for(int i = 0; i < 5; i++){
+	for(int i = 0; i < arr_size; i++){
 		int_array[i] = i;
 	}
 
-	/*printing array*/
-	for(int i = 0; i < 5; i++){
-		cout << int_array[i];
+	/*filling Complex array*/
+	for(int i = 0; i < arr_size; i++){
+		cmp_array[i].setReal((double)i);
+		cmp_array[i].setImaginary((double)(i - 1));
 	}
-	cout << endl;
 
-	cout << array_search(int_array, 5, 3) << endl;
+	/*creating Complex element to look for*/
+	Complex t(4, 3);
+
+	/*executing array_search and printing the results*/
+	cout << array_search(int_array, arr_size, 7) << endl;
+	cout << array_search(cmp_array, arr_size, t) << endl;
 
 	return 0;
 }

@@ -14,7 +14,9 @@ class Complex{
 		Complex();
 		Complex(double nr, double ni);
 		~Complex();
-		void print();
+		friend bool operator==(const Complex& a, const Complex& b);
+		void setReal(double nr);
+		void setImaginary(double ni);
 };
 
 #endif
