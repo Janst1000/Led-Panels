@@ -20,8 +20,12 @@ public:
 	void printList(Node* head);
 
 	/*get first and last nodes*/
-	Node<T> getFront(Node* head);
-	Node<T> getLast(Node* head);
+	T getFront(Node* head);
+	T getLast(Node* head);
+
+	/*pop first and last*/
+	Node<T>* popFront(Node* head, T& out);
+	T popLast(Node* head);
 };
 
 template <class T>
@@ -71,6 +75,35 @@ void Node<T>::printList(Node<T>* head){
 	std::cout << head->data << std::endl;
 }
 
+template <class T>
+T Node<T>::getFront(Node<T>* head){
+	return head->data;
+}
 
+template <class T>
+T Node<T>::getLast(Node<T>* head){
+	while(head->next != NULL){
+		head = head->next;
+	}
+	return head->data;
+}
+
+/*popping methods*/
+template <class T>
+Node<T>* Node<T>::popFront(Node<T>* head, T& out){
+	/*getting the data*/
+	out = head->data;
+	/*checking if this is the only node*/
+	if(head->next != NULL){
+		head = head->next;
+
+		head->prev = NULL;
+		return head;
+	} else {
+		/*if this is our only node we return NULL since we delete it*/
+		delete head;
+		return NULL;
+	}
+}
 
 #endif
