@@ -41,6 +41,7 @@ int main(int argc, char** argv){
     head_node = head_node->popFront(head_node, out);
     cout << out << endl;
     cout << "Popping back node:" << endl;
+    cout << head_node->popLast(head_node) << endl;
 
     /*printing to see if popping worked*/
     head_node->printList(head_node);

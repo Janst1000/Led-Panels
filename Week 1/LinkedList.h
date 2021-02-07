@@ -106,4 +106,15 @@ Node<T>* Node<T>::popFront(Node<T>* head, T& out){
 	}
 }
 
+template <class T>
+T Node<T>::popLast(Node* head){
+	while(head->next != NULL){
+		head = head->next;
+	}
+	T out = head->data;
+	head = head->prev;
+	head->next = NULL;
+	return out;
+}
+
 #endif
