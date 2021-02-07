@@ -5,7 +5,9 @@ OBJ_1 = Complex.o test_array_search.o
 
 OBJ_2 = testStack.o
 
-all : problem_1 problem_2
+OBJ_3 = testLinkedList.o
+
+all : problem_1 problem_2 problem_3
 
 problem_1 : $(OBJ_1) ;
 		  $(CC) $(CFLAGS) -o test_array_search $(OBJ_1)
@@ -19,6 +21,11 @@ problem_2 : $(OBJ_2) ;
 			$(CC) $(CFLAGS) -o testStack $(OBJ_2)
 
 testStack.o : Stack.h testStack.cpp
+
+problem_3 : $(OBJ_3) ;
+			$(CC) $(CFLAGS) -o testLinkedList $(OBJ_3)
+
+testLinkedList.o : LinkedList.h testLinkedList.cpp
 
 clean :
 	rm -f *.o
