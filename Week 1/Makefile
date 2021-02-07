@@ -9,7 +9,7 @@ OBJ_3 = testLinkedList.o
 
 OBJ_4 = vectors1.o
 
-all : problem_1 problem_2 problem_3
+all : problem_1 problem_2 problem_3 problem_4
 
 problem_1 : $(OBJ_1) ;
 		  $(CC) $(CFLAGS) -o test_array_search $(OBJ_1)
