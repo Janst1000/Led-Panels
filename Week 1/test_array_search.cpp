@@ -59,10 +59,10 @@ int main(int argc, char** argv){
 	Complex t(4, 3);
 
 	/*executing array_search and printing the results*/
-	cout << array_search(int_array, arr_size, 7) << endl;
-	cout << array_search(d_array, arr_size, 1.1) << endl;
-	cout << array_search(c_array, arr_size, 'a') << endl;
-	cout << array_search(cmp_array, arr_size, t) << endl;
+	cout << "Integer Array: " << array_search(int_array, arr_size, 7) << endl;
+	cout << "Double Array: " << array_search(d_array, arr_size, 1.1) << endl;
+	cout << "Character Array: " << array_search(c_array, arr_size, 'a') << endl;
+	cout << "Complex Array: " << array_search(cmp_array, arr_size, t) << endl;
 
 	return 0;
 }
