@@ -31,10 +31,14 @@ int main(int argc, char** argv){
 
     head_node->printList(head_node);
 
+    /*getting nodes*/
     cout << "Getting front node:" << endl;
     cout << head_node->getFront(head_node) << endl;
     cout << "Getting back node:" << endl;
     cout << head_node->getLast(head_node) << endl;
+    cout << "Printing list to confirm that the nodes are still there:" << endl;
+    head_node->printList(head_node);
+
 
     /*popping nodes*/
     cout << "Popping front node:" << endl;
@@ -44,8 +48,12 @@ int main(int argc, char** argv){
     cout << head_node->popLast(head_node) << endl;
 
     /*printing to see if popping worked*/
+    cout << "Printing list to confirm popping:" << endl;
     head_node->printList(head_node);
 
+    /*cheking how many elements are in the list*/
+    cout << "There are this many elements in the list:" << endl;
+    cout << head_node->getNum(head_node) << endl;
 
 	return 0;
 }

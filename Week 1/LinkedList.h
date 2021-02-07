@@ -26,6 +26,10 @@ public:
 	/*pop first and last*/
 	Node<T>* popFront(Node* head, T& out);
 	T popLast(Node* head);
+
+	/*getNum method*/
+	int getNum(Node* head);
+
 };
 
 template <class T>
@@ -115,6 +119,17 @@ T Node<T>::popLast(Node* head){
 	head = head->prev;
 	head->next = NULL;
 	return out;
+}
+
+/*getNum method*/
+template <class T>
+int Node<T>::getNum(Node<T>* head){
+	int num = 0;
+	while(head->next != NULL){
+		head = head->next;
+		num++;
+	}
+	return num + 1;
 }
 
 #endif
