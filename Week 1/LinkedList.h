@@ -112,12 +112,16 @@ Node<T>* Node<T>::popFront(Node<T>* head, T& out){
 
 template <class T>
 T Node<T>::popLast(Node* head){
+	/*going to the end of the list*/
 	while(head->next != NULL){
 		head = head->next;
 	}
+	/*saving the data in a temp variable*/
 	T out = head->data;
+	/*resetting the pointers*/
 	head = head->prev;
 	head->next = NULL;
+	/*returning the data*/
 	return out;
 }
 
@@ -125,6 +129,7 @@ T Node<T>::popLast(Node* head){
 template <class T>
 int Node<T>::getNum(Node<T>* head){
 	int num = 0;
+	/*go to the end of the list while counting*/
 	while(head->next != NULL){
 		head = head->next;
 		num++;
