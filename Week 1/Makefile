@@ -42,4 +42,4 @@ problem_5 : $(OBJ_5) ;
 vectors2.o : vectors2.cpp
 
 clean :
-	rm -f *.o
+	rm -f *.o *.exe
