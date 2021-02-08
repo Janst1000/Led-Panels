@@ -11,7 +11,7 @@ OBJ_4 = vectors1.o
 
 OBJ_5 = vectors2.o
 
-all : problem_1 problem_2 problem_3 problem_4
+all : problem_1 problem_2 problem_3 problem_4 problem_5
 
 problem_1 : $(OBJ_1) ;
 		  $(CC) $(CFLAGS) -o test_array_search $(OBJ_1)
