@@ -9,6 +9,8 @@ OBJ_3 = testLinkedList.o
 
 OBJ_4 = vectors1.o
 
+OBJ_5 = vectors2.o
+
 all : problem_1 problem_2 problem_3 problem_4
 
 problem_1 : $(OBJ_1) ;
@@ -33,6 +35,11 @@ problem_4 : $(OBJ_4) ;
 			$(CC) $(CFLAGS) -o vectors1 $(OBJ_4)
 
 vectors1.o: vectors1.cpp
+
+problem_5 : $(OBJ_5) ;
+			$(CC) $(CFLAGS) -o vectors2 $(OBJ_5)
+
+vectors2.o : vectors2.cpp
 
 clean :
 	rm -f *.o
