@@ -119,6 +119,30 @@ int main(int argc, char** argv){
 		pos++;
 	}
 
+	/*empty line*/
+	cout << endl;
+
+	/*merging the lists*/
+	A.merge(B);
+
+	/*sorting the list*/
+	A.sort();
+
+	/*printing list on the standard output*/
+	it = A.begin();
+	pos = 0;
+	while(it != A.end()){
+		cout << *it;
+		if(pos + 1 != A.size()){
+			cout << " ";
+		} else {
+			cout << " ";
+			cout << endl;
+		}
+		it++;
+		pos++;
+	}	
+
 	out.close();
 	return 0;
 }
