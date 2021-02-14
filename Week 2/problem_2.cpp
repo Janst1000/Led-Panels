@@ -36,14 +36,18 @@ int main(int argc, char** argv){
 	/*adding 0 to the middle*/
 	it = A.begin();
 	bool added = false;
+	/*going through the deque until we reach the first positive number*/
 	while(it != A.end()){
 		if(*it > 0){
+			/*adding the 0*/
 			A.insert(it, 0);
 			added = true;
 			break;
 		}
 		it++;
 	}
+	/*if there are no positive numbers in the stack we simply insert the 0
+	at the end*/
 	if(added == false){
 		A.insert(it, 0);
 	}
