@@ -14,6 +14,7 @@ class WindGauge {
 		int highest() const;
 		int lowest() const;
 		int average() const;
+		void dump() const;
 	private:
 		deque<int> Data;
 		int elements;

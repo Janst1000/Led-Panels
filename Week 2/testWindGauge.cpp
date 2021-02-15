@@ -10,12 +10,39 @@
 
 using namespace std;
 int main(int argc, char** argv){
-	WindGauge A(12);
-    for(int i = 0; i < 15; i++){
-        A.currentWindSpeed(i);
-    }
-    
-    cout << A.highest() << endl;
-    cout << A.lowest() << endl;
+	/*creating WindGauge object*/
+    WindGauge A(12);
+
+    /*pushing Data*/
+    A.currentWindSpeed(15);
+    A.currentWindSpeed(16);
+    A.currentWindSpeed(12);
+    A.currentWindSpeed(15);
+    A.currentWindSpeed(15);
+
+    /*dumping*/
+    A.dump();
+    cout << A.highest() << " ";
+    cout << A.lowest() << " ";
+    cout << A.average() << endl;
+
+    /*pushing new data*/
+    A.currentWindSpeed(16);
+    A.currentWindSpeed(17);
+    A.currentWindSpeed(16);
+    A.currentWindSpeed(16);
+    A.currentWindSpeed(20);
+    A.currentWindSpeed(17);
+    A.currentWindSpeed(16);
+    A.currentWindSpeed(15);
+    A.currentWindSpeed(16);
+    A.currentWindSpeed(20);
+
+    /*dumping data*/
+    A.dump();
+    cout << A.highest() << " ";
+    cout << A.lowest() << " ";
+    cout << A.average() << endl;
+
 	return 0;
 }
