@@ -1,6 +1,6 @@
 /*
     CH-231-A
-    problem_1.cpp
+    problem_4.cpp
     Jan Steinmueller
     j.steinmueller@jacobs-university.de
 */
