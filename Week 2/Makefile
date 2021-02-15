@@ -11,6 +11,8 @@ OBJ_4 = problem_4.o
 
 OBJ_5 = problem_5.o
 
+OBJ_6 = problem_6.o
+
 all: problem_1 problem_2 problem_3 problem_4 problem_5
 
 problem_1:	$(OBJ_1) ;
@@ -30,13 +32,20 @@ WindGauge.o :	WindGauge.h WindGauge.cpp
 
 testWindGauge.o :	WindGauge.h testWindGauge.cpp
 
-problem_4 :	$(OBJ_4) ;
+problem_4:	$(OBJ_4) ;
 			$(CC) $(CFLAGS) -o problem_4 $(OBJ_4)
 
 problem_4.o:	problem_4.cpp
 
-problem_5 :	$(OBJ_5) ;
+problem_5:	$(OBJ_5) ;
 			$(CC) $(CFLAGS) -o problem_5 $(OBJ_5)
+
+problem_5.o:	problem_5.cpp
+
+problem_6:	$(OBJ_6) ;
+			$(CC) $(CFLAGS) -o problem_6 $(OBJ_6)
+
+problem_6.o :	problem_5.cpp
 
 clean :
 	rm -f *.o *.exe
