@@ -13,12 +13,42 @@ using namespace std;
 int main(int argc, char** argv){
 	/*creating map object*/
 	map<string, string> Data;
-	Data["Jan Steinmüller"] = "15.05.2001";
 
-	if(Data.find("Jan Steinmüller") == Data.end()){
-		cout << "Name not found" << endl;
-	} else {
-		cout << Data["Jan Steinmüller"] << endl;
+	/*opening file*/
+	ifstream fp("data.txt");
+	if(!fp.good()){
+		cout << "error opening file" << endl;
+		return 2;
 	}
+
+	/*helper variables*/
+	string name;
+	string last_name;
+	string birthday;
+
+	/*reading until we reach end of file*/
+	while(fp >> name){
+		fp >> last_name;
+		fp >> birthday;
+		name = name + " " + last_name;
+		/*adding to the map*/
+		Data[name] = birthday;
+	}
+
+	string input;
+	/*reading until exit is entered*/
+	while(true){
+		getline(cin, input);
+		if(input == "exit"){
+			break;
+		}
+		if(Data.find(input) == Data.end()){
+			cout << "Name not found!" << endl;
+		} else {
+			cout << Data[input] << endl << endl;
+		}
+
+	}
+	fp.close();
 	return 0;
 }
