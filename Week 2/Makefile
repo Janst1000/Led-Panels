@@ -31,7 +31,7 @@ testWindGauge.o :	WindGauge.h testWindGauge.cpp
 problem_4 :	$(OBJ_4) ;
 			$(CC) $(CFLAGS) -o problem_4 $(OBJ_4)
 
-problem_4.o:	problem_4.cpp;
+problem_4.o:	problem_4.cpp
 
 clean :
 	rm -f *.o *.exe
