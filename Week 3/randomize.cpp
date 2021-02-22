@@ -19,6 +19,8 @@ int main(int argc,char** argv){
 	int elements = 0;
 	int num = 0;
 	int step = 0;
+	cout << "number of elements of first array, number of arrays, stepsize";
+	cout << endl;
 	cin >> elements;
 	cin >> num;
 	cin >> step;

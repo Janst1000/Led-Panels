@@ -8,6 +8,7 @@
 #include <stdlib.h>
 #include <fstream>
 #include <sstream>
+#include <chrono>
 
 
 using namespace std;
@@ -20,11 +21,14 @@ int main(int argc, char** argv){
 	
 	string line  = "";
 
+	cout << "lower, upper, step and number of arrays" << endl;
 	int lower;
 	int upper;
 	int step;
 	int counter = 1;
 	int arr_num = 0;
+	auto start = chrono::high_resolution_clock::now();
+	auto end = chrono::high_resolution_clock::now();
 
 	cin >> lower;
 	cin >> upper;
@@ -66,6 +70,7 @@ int main(int argc, char** argv){
 
 
 		/*start of selection sort*/
+		start = chrono::high_resolution_clock::now();
 		for(int i = 0; i < arr_size -1; i++){
 			/*setting current element to minimum*/
 			int min = i;
@@ -84,6 +89,7 @@ int main(int argc, char** argv){
 				swaps++;
 			}
 		}
+		end = chrono::high_resolution_clock::now();
 
 		/*printing array after sorting*/
 		cout << "finished sorting array " << counter << endl;
@@ -92,7 +98,7 @@ int main(int argc, char** argv){
 			out << arr[i] << " ";
 		}
 
-		out <<  " >> " << swaps << endl;
+		out <<  " >> " << (end - start).count() << endl;
 		counter++;
 		line = "";
 		arr_size += step;
