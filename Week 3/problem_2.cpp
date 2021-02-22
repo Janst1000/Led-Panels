@@ -6,8 +6,9 @@
 */
 #include <iostream>
 #include <stdlib.h>
+#include <fstream>
+#include <sstream>
 
-#define SEED 12345678
 
 using namespace std;
 
@@ -16,52 +17,89 @@ using namespace std;
 */
 
 int main(int argc, char** argv){
-	/*intializing array*/
-	const int size = 10;
-	int arr[size];
+	
+	string line  = "";
 
-	/*setting seed to make reproducable results*/
-	srand(SEED);
+	int lower;
+	int upper;
+	int step;
+	int counter = 1;
+	int arr_num = 0;
 
-	/*filling the array with random numbers*/
-	for(int i = 0; i < size; i++){
-		arr[i] = rand() % 100;
+	cin >> lower;
+	cin >> upper;
+	cin >> step;
+	cin >> arr_num;
+
+	/*opening file to read from*/
+	ifstream in;
+	in.open("numbers.txt");
+	if(!in.good()){
+		cerr << "error opening file" << endl;
+		return 2;
 	}
 
-	/*printing array before sorting*/
-	for(int i = 0; i < size; i++){
-		cout << arr[i] << " ";
+	/*opening file to read from*/
+	ofstream out;
+	out.open("output.txt");
+	if(!out.good()){
+		cerr << "error opening file" << endl;
+		return 2;
 	}
 
-	cout << endl;
+	int arr_size = lower;
+	/*loop over all arrays*/
+	for(int k = 0; k < arr_num; k++){
+		int swaps = 0;
+		int arr[arr_size];
+		/*filling the array with random numbers*/
+		int i = 0;
+		getline(in, line);
+		int temp = 0;
+		istringstream is( line );
+		while(is >> temp){
+			arr[i] = temp;
+			i++;
+		}
 
-	/*start of selection sort*/
-	for(int i = 0; i < size -1; i++){
-		/*setting current element to minimum*/
-		int min = i;
-		/*going through the back of the array*/
-		for( int j = i +1; j < size; j++){
-			/*looking if there is a a smaller number*/
-			if(arr[j] < arr[min]){
-				min = j;
+
+
+
+		/*start of selection sort*/
+		for(int i = 0; i < arr_size -1; i++){
+			/*setting current element to minimum*/
+			int min = i;
+			/*going through the back of the array*/
+			for( int j = i +1; j < arr_size; j++){
+				/*looking if there is a a smaller number*/
+				if(arr[j] < arr[min]){
+					min = j;
+				}
+			}
+			/*swapping if the minum number is not the current element*/
+			if (min != i ){
+				int temp = arr[min];
+				arr[min] = arr[i];
+				arr[i] = temp;
+				swaps++;
 			}
 		}
-		/*swapping if the minum number is not the current element*/
-		if (min != i ){
-			int temp = arr[min];
-			arr[min] = arr[i];
-			arr[i] = temp;
+
+		/*printing array after sorting*/
+		cout << "finished sorting array " << counter << endl;
+
+		for(int i = 0; i < arr_size; i++){
+			out << arr[i] << " ";
 		}
+
+		out <<  " >> " << swaps << endl;
+		counter++;
+		line = "";
+		arr_size += step;
 	}
+	in.close();
 
-	/*printing array after sorting*/
-	cout << "finished sorting" << endl;
-
-	for(int i = 0; i < size; i++){
-		cout << arr[i] << " ";
-	}
-
-	cout << endl;
+	
 
 	return 0;
 }
