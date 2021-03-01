@@ -4,18 +4,24 @@ using namespace std;
 
 void merge(int arr[], int left, int middle, int right);
 
-void mergeSort(int arr[], int l, int r);
+void mergeSort(int arr[], int l, int r, int k);
 
 void printArray(int arr[], int size);
 
+void insertionSort(int arr[], int size);
+
 int main(int argc, char** argv){
-	int array[] = {5, 11, 4, 2, 6, 8};
+	int array[] = {5, 11, 4, 2, 6, 8, 1, 9, 12, 13};
 	int array_size = sizeof(array) / sizeof(array[0]);
 
 	cout << "before:" << endl;
 	printArray(array, array_size);
 
-	mergeSort(array, 0, array_size -1);
+	
+	mergeSort(array, 0, array_size -1, 3);
+	
+
+	//insertionSort(array, array_size);
 
 	cout << "after:" << endl;
 	printArray(array, array_size);
@@ -71,15 +77,21 @@ void merge(int arr[], int left, int middle, int right){
 
 }
 
-void mergeSort(int arr[], int l, int r){
-	if(l >= r){
+void mergeSort(int arr[], int l, int r, int k){
+	
+	if(r > k){
+		if(l >= r){
 		return;
 	}
 	int middle = l + (r - l) / 2;
-	mergeSort(arr, l, middle);
-	printArray(arr, 6);
-	mergeSort(arr, middle+1, r);
-	merge(arr, l, middle, r);
+		mergeSort(arr, l, middle, k);
+		mergeSort(arr, middle+1, r, k);
+		merge(arr, l, middle, r);
+	} else {
+		insertionSort(arr, r);
+		return;
+	}
+	
 }
 
 void printArray(int arr[], int size)
@@ -87,4 +99,19 @@ void printArray(int arr[], int size)
     for (int i = 0; i < size; i++)
         cout << arr[i] << " ";
 	cout << endl;
+}
+
+void insertionSort(int arr[], int size){
+	int current, j;
+	for(int i = 1; i < size; i++){
+		current = arr[i]; 
+        j = i - 1; 
+ 
+        /* swapping until element is at the right place */
+        while (j >= 0 && arr[j] > current){ 
+            arr[j + 1] = arr[j]; 
+            j = j - 1; 
+        } 
+        arr[j + 1] = current;
+	}
 }
