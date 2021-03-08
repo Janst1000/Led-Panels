@@ -7,10 +7,9 @@
 #include <iostream>
 #include <cmath>
 #include <chrono>
+#include <fstream>
 
 using namespace std;
-
-const int size = 3;
 
 int naive_rec(int n){
 	if(n < 2){
@@ -50,63 +49,70 @@ int closed_form(int n){
 	}
 }
 
-void multiply(int l[size][size], int r[size][size]){
-	int result[size][size];
-	for(int i = 0; i < 3; i++){
-		for(int j = 0; j < 3; j++){
-			result[3][3] = 0;
-			for(int k = 0; k < 3; k++){
-				result[i][j] += (l[i][k] * r[k][j]);
-			}
-		}
-	}
+void multiply(unsigned long l[2][2], unsigned long r[2][2]){
+	unsigned long result[2][2] = {{0,0}, {0,0}};
+	result[0][0] = l[0][0] * r[0][0] + l[0][1] * r[1][0];
+	result[0][1] = l[0][0] * r[0][1] + l[0][1] * r[1][1];
+	result[1][0] = l[1][0] * r[0][0] + l[1][1] * r[1][0];
+	result[1][1] = l[1][0] * r[0][1] + l[1][1] * r[1][1];
+
+
 	/*storing the values in the left matrix*/
-	for(int i = 0; i < 3; i++){
-		for(int j = 0; j < 3; j++){
+	for(int i = 0; i < 2; i++){
+		for(int j = 0; j < 2; j++){
 			l[i][j] = result[i][j];
 		}
 	}
 }
 
 
-int matrix_pow(int F[size][size], int n){
-	int temp[3][3] = {{1, 1, 1},{1, 0, 0},{0, 1, 0}};
-
-	if(n == 1){
-		return F[0][0] + F[0][1];
+void matrix_pow(unsigned long F[2][2], int n)
+{
+	int i;
+	unsigned long M[2][2] = {{1, 1},{1, 0}};
+	
+	// n - 1 times multiply the 
+	// matrix to {{1,0},{0,1}}
+	for(i = 2; i <= n; i++){
+		multiply(F, M);
 	}
-
-	matrix_pow(F, n / 2);
-
-	multiply(F, F);
-
-	if(n%2 != 0){
-		multiply(F, temp);
-	}
-
-	return F[0][1] + F[0][1];
+		
 }
 
-int matrix_mult(int n){
-	int M[size][size] = {{1, 1, 1},{1, 0, 0},{0, 1, 0}};
+unsigned long matrix_mult(int n){
+	unsigned long M[2][2] = {{1, 1}, {1, 0}};
 
 	if(n == 0){
 		return n;
 	} else if(n == 1 || n == 2){
 		return 1;
 	}
-	return matrix_pow(M, n-2);
+	matrix_pow(M, n- 1);
+	return M[0][0];
 }
 
 int main(int argc, char** argv){
 	int n;
 
+	ofstream out("data.txt");
+	if(!out.good()){
+		cerr << "couldn't open file";
+		exit(1);
+	}
+
 	cin >> n;
 
-	cout << naive_rec(n) << endl;
-	cout << bottom_up(n) << endl;
-	cout << closed_form(n) << endl;
-	cout << matrix_mult(n) << endl;
+	for(int i = 0; i <= n; (i*=1.25)++){
+		out << i << "\t";
+//		cout << naive_rec(n) << endl;
+//		cout << bottom_up(n) << endl;
+//		cout << closed_form(n) << endl;
+		out << matrix_mult(i) << "\t";
+		out << endl;
+	}
+	cout << "done" << endl;
+	out.close();
+	
 
 	return 0;
 }
