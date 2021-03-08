@@ -9,7 +9,7 @@ all : fibonacci
 fibonacci :	$(OBJ_1) ;
 			$(CC) $(CFLAGS) -o fibonacci $(OBJ_1)
 
-fibonacci.o : problem1.cpp
+fibonacci.o : fibonacci.cpp
 
 clean :
 	rm -f *.o *.exe
