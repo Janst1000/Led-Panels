@@ -7,6 +7,7 @@
 
 #include <iostream>
 #include <fstream>
+#include <chrono>
 
 using namespace std;
 
@@ -32,6 +33,48 @@ void max_heapify(int A[], int n, int i){
 	}
 }
 
+/*finding the leaf we want to go down to*/
+int find_leaf(int A[], int n, int i){
+	/*variable intialisation*/
+	int j = i;
+	int l = 2 * i + 1;
+	int r = 2 * i + 2;
+	/*repeating until we don't have any right child anymore*/
+	while(r < n){
+		/*setting new leaf candidate to the smaller of left and right*/
+		if(A[l] > A[r]){
+			j = r;
+		} else {
+			j = l;
+		}
+		/*iterating the loop to get new childs*/
+		l = 2 * j + 1;
+		r = 2 * j + 2;
+	}
+	/*returning the left child if only a left child exists*/
+	if (l < n){
+		j = l;
+	}
+	return j;
+}
+
+void float_down(int A[], int n, int i){
+	/*searching for leaf*/
+	int j = find_leaf(A, n, i);
+	while(A[i] > A[j]){
+		/*getting parent of j*/
+		j = (j - 1)  / 2; 
+	}
+	/*temporary index x*/
+	int x = A[j];
+	A[j] = A[i];
+	/*floating back up*/
+	while(j > i){
+		swap(x, A[(j - 1)/ 2]);
+		j = (j - 1) / 2;
+	}
+}
+
 void build_max_heap(int A[], int n){
 	/*building the max heap sort by calling max_heapify n/2 times*/
 	for(int i = n / 2 - 1; i >= 0; i--){
@@ -49,6 +92,19 @@ void heap_sort(int A[], int n){
 		max_heapify(A, i, 0);
 	}
 }
+
+void bottem_up_heap_sort(int A[], int n){
+	/*building the heap*/
+	build_max_heap(A, n);
+	/*sorting the heap*/
+	for(int i = n-1; i > 0; i--){
+		swap(A[0], A[i]);
+		n--;
+		/*calling float down as described in problem*/
+		float_down(A, n, 0);
+	}
+}
+
 
 /*simple array printing function*/
 void print_arr(int A[], int n){
@@ -83,12 +139,23 @@ int main(int argc, char** argv){
 	print_arr(A, n);
 	cout << "now sorting" << endl;
 
+	auto start = chrono::steady_clock::now();
 	/*sorting*/
 	heap_sort(A, n);
+	auto end = chrono::steady_clock::now();
+	auto time = chrono::duration_cast<chrono::nanoseconds>(end - start).count();
 
 	/*printing the finished array*/
 	print_arr(A, n);
-	cout << "done" << endl;
+	cout << "done normal heap sort in " << time << " ns" << endl;
+
+	/*I tried implementing the bottom up heap sort with the help of this
+	  wikipedia page but I couldn't get it to work so the following code
+	  is commented out*/
+
+	//bottem_up_heap_sort(A, n);
+	//print_arr(A, n);
+	//cout << "done bottom up heap sort" << endl;
 
 	return 0;
 }
