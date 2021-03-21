@@ -13,6 +13,7 @@ using namespace chrono;
 
 int main(int arc, char** argv){
 
+	int size;
 	/*using file input so I can use random.org to generate arrays
 	  arrays are generated with only spaces seperating them*/
 	ifstream in("input.txt");
@@ -21,16 +22,17 @@ int main(int arc, char** argv){
 		return 2;
 	}
 
-	cout << "How many elements are in the input.txt file?" << endl;
+	cout << "Reading array" << endl;
 	/*getting user input for the number of elements in the array*/
-	int n = 0;
-	cin >> n;
+	in >> size;
 
 	/*creating and filling the array with numbers from the file*/
-	int A[n];
-	for(int i = 0; i < n; i++){
+	int A[size];
+	for(int i = 0; i < size; i++){
 		in >> A[i];
 	}
+
+	cout << "got input array";
 
 	return 0;
 }

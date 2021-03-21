@@ -14,7 +14,7 @@ int main(int argc, char** argv){
 	int number_of_arrays;
 	int array_size;
 	int num_range;
-	int Arr[array_size];
+	//int Arr[array_size];
 	cin >> number_of_arrays;
 	cin >> array_size;
 	cin >> num_range;
@@ -29,16 +29,13 @@ int main(int argc, char** argv){
 	srand(time(NULL));
 
 	for(int i = 0; i < number_of_arrays; i++){
+		out << array_size << endl;
 		for(int j = 0; j < array_size; j++){
-			Arr[j] = rand() % num_range;
+			out << rand() % num_range << " ";
 		}
 		cout << "generated array " << i+1 << endl;
 
-		for(int j = 0; j < array_size; j++){
-			out << Arr[j] << " ";
-		} 
 		out << endl;
-		cout << "written array " << i+1 << endl;
 	}
 	
 
