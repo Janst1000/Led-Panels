@@ -14,7 +14,7 @@ int main(int argc, char** argv){
 	int number_of_arrays;
 	int array_size;
 	int num_range;
-	//int Arr[array_size];
+
 	cin >> number_of_arrays;
 	cin >> array_size;
 	cin >> num_range;
@@ -28,8 +28,10 @@ int main(int argc, char** argv){
 	/*intitalizing random seed*/
 	srand(time(NULL));
 
+	/*outer arran number loop*/
 	for(int i = 0; i < number_of_arrays; i++){
 		out << array_size << endl;
+		/*inner array size loop*/
 		for(int j = 0; j < array_size; j++){
 			out << rand() % num_range << " ";
 		}
