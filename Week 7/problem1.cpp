@@ -36,9 +36,19 @@ void quicksort_l(int A[],int p,int r){
 	}
 }
 
+void saveTime(int64_t time){
+	fstream out("times.txt", ios::app);
+	if(!out.good()){
+		cerr << "error opening file" << endl;
+		exit(1);
+	}
+	out << time << endl;
+	out.close();
+}
+
 /*function to save array to out.txt file*/
 void saveArray(int A[],int n){
-	ofstream out("out.txt");
+	ofstream out("out.txt", ios::app);
 	if(!out.good()){
 		cerr << "error opening file" << endl;
 		exit(1);
@@ -47,11 +57,31 @@ void saveArray(int A[],int n){
 		out << A[i] << " ";
 	}
 	out << endl;
+	out.close();
 }
 
 int main(int arc, char** argv){
-
+	int num_of_arr;
 	int size;
+
+	/*clearing output files*/
+	ofstream out("out.txt");
+	if(!out.good()){
+		cerr << "couldn't open out file" << endl;
+		return 2;
+	}
+	out << "";
+	out.close();
+
+	/*clearing output files*/
+	ofstream times("times.txt");
+	if(!out.good()){
+		cerr << "couldn't open out file" << endl;
+		return 2;
+	}
+	times << "";
+	times.close();
+
 	/*using file input so I can use random.org to generate arrays
 	  arrays are generated with only spaces seperating them*/
 	ifstream in("input.txt");
@@ -60,7 +90,10 @@ int main(int arc, char** argv){
 		return 2;
 	}
 
-	cout << "Reading array" << endl;
+	in >> num_of_arr;
+
+	for(int count = 0; count < num_of_arr; count++){
+		cout << "Reading array" << endl;
 	/*getting user input for the number of elements in the array*/
 	in >> size;
 
@@ -72,11 +105,17 @@ int main(int arc, char** argv){
 
 	cout << "got input array" << endl;
 
+	auto start = steady_clock::now();
 	quicksort_l(A, 0, size -1);
+	auto end = steady_clock::now();
+	auto time = duration_cast<microseconds>(end - start).count();
 
 	cout << "sorted" << endl;
 
 	saveArray(A, size);
+	saveTime(time);
 
+	}
+	in.close();
 	return 0;
 }

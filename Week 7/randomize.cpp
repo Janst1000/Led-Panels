@@ -28,6 +28,8 @@ int main(int argc, char** argv){
 	/*intitalizing random seed*/
 	srand(time(NULL));
 
+	out << number_of_arrays << endl;
+
 	/*outer arran number loop*/
 	for(int i = 0; i < number_of_arrays; i++){
 		out << array_size << endl;
