@@ -15,8 +15,11 @@ int main(int argc, char** argv){
 	int array_size;
 	int num_range;
 
+	cout << "How many array should be generated?" << endl;
 	cin >> number_of_arrays;
+	cout << "How many elements should the arrays have?" << endl;
 	cin >> array_size;
+	cout << "What should the largest number be?" << endl;
 	cin >> num_range;
 
 	ofstream out("input.txt");
@@ -37,7 +40,7 @@ int main(int argc, char** argv){
 		for(int j = 0; j < array_size; j++){
 			out << rand() % num_range << " ";
 		}
-		cout << "generated array " << i+1 << endl;
+		//cout << "generated array " << i+1 << endl;
 
 		out << endl;
 	}

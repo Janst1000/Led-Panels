@@ -11,6 +11,34 @@
 using namespace std;
 using namespace chrono;
 
+/*code not working for median of three*/
+/*median of three partitioning*/
+int med_of_three(int A[], int p, int r){
+	int x = A[p];
+	int y = A[(r - p) / 2 + p];
+	int z = A[r- 1];
+	int i = p;
+	int j = r;
+	if(y > x && y < z || y > z && y < x){
+		x = y;
+	} else if(z > x && z < y || z > y && z < x){
+		x = z;
+	}
+	while(true){
+		do{
+			j--;
+		} while (A[j] > x);
+		do{
+			i++;
+		} while (A[i] < x);
+		if(A[i] < A[j]){
+			swap(A[i], A[j]);
+		}	else {
+			return j;
+		}
+	}
+}
+
 /*hoare partitioning*/
 int hoare(int A[], int low, int high)
 {
@@ -49,6 +77,18 @@ int lomoto(int A[], int low, int high){
 	return (i + 1);
 }
 
+/*code not working*/
+/*quicksort with median of three*/
+void quicksort_m(int A[], int p, int r){
+	if(p < r){
+		int q = med_of_three(A, p, r);
+		cout << q << endl;
+		quicksort_m(A, p, q);
+		quicksort_m(A, q +1, r);
+	}
+}
+
+/*quicksort with hoare*/
 void quicksort_h(int A[], int p, int r){
 	if(p < r){
 		int q = hoare(A, p, r);
@@ -120,7 +160,7 @@ int main(int arc, char** argv){
 	in >> num_of_arr;
 
 	for(int count = 0; count < num_of_arr; count++){
-		cout << "Reading array" << endl;
+		//cout << "Reading array" << endl;
 	/*getting user input for the number of elements in the array*/
 	in >> size;
 
@@ -130,7 +170,7 @@ int main(int arc, char** argv){
 		in >> A[i];
 	}
 
-	cout << "got input array" << endl;
+	//cout << "got input array" << endl;
 
 	auto start = steady_clock::now();
 	if(i == 0)
@@ -140,10 +180,10 @@ int main(int arc, char** argv){
 	auto end = steady_clock::now();
 	auto time = duration_cast<microseconds>(end - start).count();
 
-	cout << "sorted" << endl;
+	cout << count << " sorted" << endl;
 
 	int time_index = i + 2;
-	saveArray(A, size, files[i]);
+	//saveArray(A, size, files[i]);
 	saveTime(time, files[time_index]);
 
 	}
