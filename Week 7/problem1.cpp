@@ -11,6 +11,28 @@
 using namespace std;
 using namespace chrono;
 
+/*hoare partitioning*/
+int hoare(int A[], int low, int high)
+{
+    int pivot = A[low];
+    int i = low - 1, j = high + 1;
+ 
+    while (true) {
+        do {
+            i++;
+        } while (A[i] < pivot);
+        do {
+            j--;
+        } while (A[j] > pivot);
+
+        if (i >= j){
+			return j;
+		}    
+		swap(A[i], A[j]);
+	}
+	
+}
+
 /*lomoto partitioning*/
 int lomoto(int A[], int low, int high){
 	/*setting the pivot*/
@@ -27,8 +49,16 @@ int lomoto(int A[], int low, int high){
 	return (i + 1);
 }
 
+void quicksort_h(int A[], int p, int r){
+	if(p < r){
+		int q = hoare(A, p, r);
+		quicksort_h(A, p, q);
+		quicksort_h(A, q + 1, r);
+	}
+}
+
 /*quicksort with lomoto partitioning*/
-void quicksort_l(int A[],int p,int r){
+void quicksort_l(int A[], int p, int r){
 	if(p < r){
 		int q = lomoto(A, p, r);
 		quicksort_l(A, p, q - 1);
@@ -36,8 +66,8 @@ void quicksort_l(int A[],int p,int r){
 	}
 }
 
-void saveTime(int64_t time){
-	fstream out("times.txt", ios::app);
+void saveTime(int64_t time, string name){
+	fstream out(name, ios::app);
 	if(!out.good()){
 		cerr << "error opening file" << endl;
 		exit(1);
@@ -47,8 +77,8 @@ void saveTime(int64_t time){
 }
 
 /*function to save array to out.txt file*/
-void saveArray(int A[],int n){
-	ofstream out("out.txt", ios::app);
+void saveArray(int A[],int n, string name){
+	ofstream out(name, ios::app);
 	if(!out.good()){
 		cerr << "error opening file" << endl;
 		exit(1);
@@ -64,26 +94,23 @@ int main(int arc, char** argv){
 	int num_of_arr;
 	int size;
 
-	/*clearing output files*/
-	ofstream out("out.txt");
-	if(!out.good()){
-		cerr << "couldn't open out file" << endl;
-		return 2;
-	}
-	out << "";
-	out.close();
+	string files[4] = {"lom_arr.txt", "hoa_arr.txt",
+					   "lom_times.txt", "hoare_times.txt"};
 
 	/*clearing output files*/
-	ofstream times("times.txt");
-	if(!out.good()){
-		cerr << "couldn't open out file" << endl;
-		return 2;
+	for(int i = 0; i < 4; i++){
+		ofstream out(files[i]);
+		if(!out.good()){
+			cerr << "couldn't open out file" << endl;
+			return 2;
+		}
+		out << "";
+		out.close();
 	}
-	times << "";
-	times.close();
+	
 
-	/*using file input so I can use random.org to generate arrays
-	  arrays are generated with only spaces seperating them*/
+	for(int i = 0; i < 2; i++){
+		/*reading array from file*/
 	ifstream in("input.txt");
 	if(!in.good()){
 		cerr << "error opening file" << endl;
@@ -106,16 +133,21 @@ int main(int arc, char** argv){
 	cout << "got input array" << endl;
 
 	auto start = steady_clock::now();
-	quicksort_l(A, 0, size -1);
+	if(i == 0)
+		quicksort_l(A, 0, size - 1);
+	if(i == 1)
+		quicksort_h(A, 0, size - 1);
 	auto end = steady_clock::now();
 	auto time = duration_cast<microseconds>(end - start).count();
 
 	cout << "sorted" << endl;
 
-	saveArray(A, size);
-	saveTime(time);
+	int time_index = i + 2;
+	saveArray(A, size, files[i]);
+	saveTime(time, files[time_index]);
 
 	}
 	in.close();
+	}
 	return 0;
 }
