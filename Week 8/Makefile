@@ -2,16 +2,16 @@ CC = g++
 
 FLAGS = -Wall
 
-OBJ_1 = problem1.o
+OBJ_1 = count_sort.o
 
 OBJ_RAND = randomize.o
 
-all : problem1
+all : count_sort
 
-problem1 :	$(OBJ_1) ;
-			$(CC) $(CFLAGS) -o problem1 $(OBJ_1)
+count_sort :	$(OBJ_1) ;
+			$(CC) $(CFLAGS) -o count_sort $(OBJ_1)
 
-problem1.o : problem1.cpp
+count_sort.o : count_sort.cpp
 
 randomize : $(OBJ_RAND) ;
 			$(CC) $(CFLAGS) -o randomize $(OBJ_RAND)

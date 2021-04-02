@@ -1,6 +1,6 @@
 /*
     CH-231-A
-    problem1.cpp
+    randomize.cpp
     Jan Steinmueller
     j.steinmueller@jacobs-university.de
 */
