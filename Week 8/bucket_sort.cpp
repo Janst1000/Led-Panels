@@ -7,6 +7,7 @@
 #include <iostream>
 #include <chrono>
 #include <vector>
+#include <algorithm>
 
 using namespace std;
 using namespace chrono;
@@ -18,21 +19,29 @@ void printArray(double A[], int n){
 	cout << endl;
 }
 
-void insertionSort(vector<double> bucket){
-	int length = bucket.size();
-	double key;
-	int j, k;
-	for(j = 1; j < length; j++){
-		key = bucket[j];
-		k = j - 1;
-		while (k >= 0 && bucket[k] > key)
-		{
-			bucket[k + 1] = bucket[k];
-			k--;
-		}
-		bucket[k + 1] = key;
-		
+void printVector(vector<double> vec){
+	int size = vec.size();
+	for(int i = 0; i < size; i++){
+		cout << vec[i] << " ";
 	}
+	cout << endl;
+}
+
+void insertionSort(vector<double> &bucket){
+	int i, j;
+	double key;
+	int n = bucket.size();
+    for (i = 1; i < n; i++)
+    {
+        key = bucket[i];
+        j = i - 1;
+        while (j >= 0 && bucket[j] > key)
+        {
+            bucket[j + 1] = bucket[j];
+            j = j - 1;
+        }
+        bucket[j + 1] = key;
+    }
 }
 
 void bucketSort(double A[], int n){
@@ -49,10 +58,11 @@ void bucketSort(double A[], int n){
 		insertionSort(B[i]);
 	}
 
-	int index;
+	int index = 0;
 	for(int i = 0; i < n; i++){
 		for(int j = 0; j < B[i].size(); j++){
-			A[index++] = B[i][j];
+			A[index] = B[i][j];
+			index++;
 		}
 	}
 }
