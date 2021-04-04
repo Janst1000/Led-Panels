@@ -23,7 +23,7 @@ bucket_sort : $(OBJ_2) ;
 bucket_sort.o : bucket_sort.cpp
 
 word_sort :	$(OBJ_3) ;
-			$(CC) $(CFLAGS) -o word_sort $(OBJ_1)
+			$(CC) $(CFLAGS) -o word_sort $(OBJ_3)
 
 word_sort.o : word_sort.cpp
 
