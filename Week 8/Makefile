@@ -8,7 +8,7 @@ OBJ_2 = bucket_sort.o
 
 OBJ_RAND = randomize.o
 
-all : count_sort
+all : count_sort bucket_sort
 
 count_sort :	$(OBJ_1) ;
 			$(CC) $(CFLAGS) -o count_sort $(OBJ_1)
