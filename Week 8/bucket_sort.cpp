@@ -5,12 +5,10 @@
     j.steinmueller@jacobs-university.de
 */
 #include <iostream>
-#include <chrono>
 #include <vector>
-#include <algorithm>
+
 
 using namespace std;
-using namespace chrono;
 
 void printArray(double A[], int n){
 	for(int i = 0; i < n; i++){
