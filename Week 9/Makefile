@@ -1,11 +1,11 @@
 CC = g++
 
-FLAGS = -Wall
+CFLAGS = -Wall
 
 OBJ_1 = problem1.o
 
 
-all : 
+all : problem1
 
 problem1 :	$(OBJ_1) ;
 			$(CC) $(CFLAGS) -o problem1 $(OBJ_1)
