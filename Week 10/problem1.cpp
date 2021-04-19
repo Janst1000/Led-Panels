@@ -12,5 +12,7 @@ using namespace std;
 using namespace chrono;
 
 int main(int argc, char** argv){
+	RedBlackTree tree;
+	tree.insertRB(1);
 	return 0;
 }
