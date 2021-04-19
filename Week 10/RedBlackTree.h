@@ -146,7 +146,10 @@ void RedBlackTree::insertRB(int new_int){
 	z.left = NULL;
 	z.right = NULL;
 	z.color = RED;
+	cout << "Inserted " << new_int << endl;
 	insertRBFixup(z_ptr);
+	cout << "Fixed RedBlackTree" << endl;
 }
+
 
 #endif

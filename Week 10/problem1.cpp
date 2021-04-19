@@ -12,6 +12,9 @@ using namespace std;
 using namespace chrono;
 
 int main(int argc, char** argv){
+
+	/*only got working rotate, insertFixup, insert function and constructor*/
+
 	RedBlackTree tree;
 	tree.insertRB(1);
 	return 0;
