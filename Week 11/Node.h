@@ -6,6 +6,8 @@ class Node{
 		int key;
 		int value;
 		Node(int nKey, int nValue);
+		Node();
+		~Node();
 };
 
 #endif
