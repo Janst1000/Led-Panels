@@ -5,11 +5,16 @@
 
 class HashTable{
 	private:
-		Node *arr;
+		Node **arr;
 		int maxSize;
 		int currentSize;
 	public:
 		HashTable(int mSize);
+		int hashCode(int key);
+		void insertNode(int nKey, int nValue);
+		int get(int nKey);
+		bool isEmpty();
+		void print();
 };
 
 #endif
