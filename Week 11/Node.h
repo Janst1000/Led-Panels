@@ -4,8 +4,8 @@
 class Node{
 	public:
 		int key;
-		int Value;
-		Node(int key, int value);
+		int value;
+		Node(int nKey, int nValue);
 };
 
 #endif
