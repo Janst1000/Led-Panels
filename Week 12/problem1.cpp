@@ -1,63 +1,60 @@
-/* Dynamic Programming solution to construct Longest
-   Increasing Subsequence */
 #include <iostream>
+#include <sstream>
 #include <vector>
 using namespace std;
  
-// Utility function to print LIS
+/*print function to print results*/
 void printLOS(vector<int>& arr)
 {
-    for (int x : arr)
-        cout << x << " ";
+    for (int i = 0; i < arr.size(); i++)
+        cout << arr[i] << " ";
     cout << endl;
 }
  
 /*funtion to compute longest ordered subarray*/
-void los(int arr[], int n){
+void los(vector<int> arr, int n){
     /*creating a double vector to store the longest sequences*/
     vector<vector<int>> L(n);
  
-    // L[0] is equal to arr[0]
+    /*the longest subarray for teh first number is just the number itself*/
     L[0].push_back(arr[0]);
  
-    // start from index 1
-    for (int i = 1; i < n; i++)
-    {
-        // do for every j less than i
-        for (int j = 0; j < i; j++)
-        {
-            /* L[i] = {Max(L[j])} + arr[i]
-            where j < i and arr[j] < arr[i] */
-            if ((arr[i] > arr[j]) &&
-                    (L[i].size() < L[j].size() + 1))
+    for (int i = 1; i < n; i++){
+        /*repeating for every j that is smaller than i*/
+        for (int j = 0; j < i; j++){
+            /*if the current element will make the los larger*/
+            if ((arr[i] > arr[j]) && (L[i].size() < L[j].size() + 1))
                 L[i] = L[j];
         }
  
-        // L[i] ends with arr[i]
+        /*The current subsequence will end in the curernt element*/
         L[i].push_back(arr[i]);
     }
  
-    // L[i] now stores increasing sub-sequence of
-    // arr[0..i] that ends with arr[i]
+    /*this creates a vector to save the LOS in*/
     vector<int> max = L[0];
  
-    // LIS will be max of all increasing sub-
-    // sequences of arr
+    /*now we step through all longest sequences and look for the largest one*/
     for (vector<int> x : L)
         if (x.size() > max.size())
             max = x;
  
-    // max will contain LIS
+    /*printing the LOS*/
     printLOS(max);
 }
  
-// Driver function
-int main()
-{
-    int arr[] = { 3, 2, 6, 4, 5, 1 };
-    int n = sizeof(arr) / sizeof(arr[0]);
+int main(){
+    /*getting the input and formatting it to a vector*/
+    vector<int> arr;
+    string line;
+    getline( cin, line );
+    istringstream iss( line );
+    int number;
+    while( iss >> number )
+        arr.push_back(number);
+    int n = arr.size();
  
-    // construct and print LIS of arr
+    /*calculating the LOS*/
     los(arr, n);
  
     return 0;
