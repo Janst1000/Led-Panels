@@ -6,7 +6,7 @@ OBJ_1 = problem1.o
 
 OBJ_2 = problem2.o
 
-all : problem2
+all : problem1 problem2
 
 problem1 :	$(OBJ_1) ;
 			$(CC) $(CFLAGS) -o problem1 $(OBJ_1)
