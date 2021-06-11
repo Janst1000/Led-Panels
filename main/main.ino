@@ -3,7 +3,9 @@
 #include "Panel.h"
 #include <time.h>
 #include "Animations.h"
+#include "Flags.h"
 
+const bool DEBUG = false;
 
 #define NUM_LEDS 75
 #define DATA_PIN 5
@@ -58,7 +60,7 @@ void setup(){
 
   // LED Strip initializing
   FastLED.addLeds<WS2812B, DATA_PIN, GRB>(leds, NUM_LEDS);  // GRB ordering is typical
-  FastLED.setBrightness(255);
+  FastLED.setBrightness(200);
   for(int y = 0; y < pheigth; y++){
       for(int x = 0; x < pwidth; x++){
         Panels[x][y].setLedPanel(PanelsTable[x][y][0], PanelsTable[x][y][1], PanelsTable[x][y][2]);
@@ -68,73 +70,84 @@ void setup(){
     rain_init();
     randomSeed(millis());
     Serial.begin(115200);
+    FastLED.setCorrection(TypicalSMD5050);
+    FastLED.setTemperature(Tungsten100W);
 }
 
 void loop(){
-    Serial.println(pattern);
-    if(pattern == 4){   //plop
-        Serial.println(cnt);
-        plop(temp_color, cnt, frame_array);
+    if(DEBUG == true){      //check if debug flag up top is set
+        CRGB colors[pheigth] = gay;
+        flag(colors);
         FastLED.show();
         FastLED.delay(1000/60);
-        EVERY_N_MILLISECONDS( 100 ){ cnt++;}
-        EVERY_N_SECONDS(1){ 
-            temp_color = CHSV(random(256), 255, 255);
-            cnt = 0;
+
+    } else {
+        Serial.println(pattern);
+        if(pattern == 4){   //plop
+            Serial.println(cnt);
+            plop(temp_color, cnt, frame_array);
+            FastLED.show();
+            FastLED.delay(1000/60);
+            EVERY_N_MILLISECONDS( 100 ){ cnt++;}
+            EVERY_N_SECONDS(1){ 
+                temp_color = CHSV(random(256), 255, 255);
+                cnt = 0;
+                }
+        }
+        if(pattern == 3){   //flush
+            flush_animation(temp_color, cnt);
+            FastLED.show();
+            //FastLED.delay(1000/60);
+            EVERY_N_MILLISECONDS( 75 ){ cnt++; }
+            EVERY_N_SECONDS(1) {
+                temp_color = CHSV(random(0, 256), 255, 255);
+                cnt = 0;
             }
-    }
-    if(pattern == 3){   //flush
-        flush_animation(temp_color, cnt);
-        FastLED.show();
-        //FastLED.delay(1000/60);
-        EVERY_N_MILLISECONDS( 75 ){ cnt++; }
-        EVERY_N_SECONDS(1) {
-            temp_color = CHSV(random(0, 256), 255, 255);
-            cnt = 0;
         }
-    }
-    if(pattern == 2){   //xydemo
-        uint32_t ms = millis();
-        int32_t yHueDelta32 = ((int32_t)cos16( ms * (27/1) ) * (350 / pwidth));
-        int32_t xHueDelta32 = ((int32_t)cos16( ms * (39/1) ) * (310 / pheigth));
-        xydemo( ms / 65536, yHueDelta32 / 32768, xHueDelta32 / 32768);
-        if( ms < 5000 ) {
-        FastLED.setBrightness( scale8( BRIGHTNESS, (ms * 256) / 5000));
-        } else {
-        FastLED.setBrightness(BRIGHTNESS);
-        }
-        FastLED.show();
-        FastLED.delay(1000/60);
-    }
-    if(pattern == 1){   //rain
-        EVERY_N_MILLISECONDS(100){
-            rain();
-            if((cnt % 3) == 0){
-                new_droplet(CHSV(random(0, 256), 255, 255));
+        if(pattern == 2){   //xydemo
+            uint32_t ms = millis();
+            int32_t yHueDelta32 = ((int32_t)cos16( ms * (27/1) ) * (350 / pwidth));
+            int32_t xHueDelta32 = ((int32_t)cos16( ms * (39/1) ) * (310 / pheigth));
+            xydemo( ms / 65536, yHueDelta32 / 32768, xHueDelta32 / 32768);
+            if( ms < 5000 ) {
+            FastLED.setBrightness( scale8( BRIGHTNESS, (ms * 256) / 5000));
+            } else {
+            FastLED.setBrightness(BRIGHTNESS);
             }
-            cnt++;
+            FastLED.show();
+            FastLED.delay(1000/60);
         }
-        FastLED.delay(1000/60);
-    }
-    if(pattern == 0){   //rainbow
-        FastLED.delay(1000/60);
-        rainbow_animation(leds, phase_shift, 40);
-        EVERY_N_MILLISECONDS( 10 ){phase_shift++;}
+        if(pattern == 1){   //rain
+            EVERY_N_MILLISECONDS(100){
+                rain();
+                if((cnt % 3) == 0){
+                    new_droplet(CHSV(random(0, 256), 255, 255));
+                }
+                cnt++;
+            }
+            FastLED.delay(1000/60);
+        }
+        if(pattern == 0){   //rainbow
+            FastLED.delay(1000/60);
+            rainbow_animation(leds, phase_shift, 40);
+            EVERY_N_MILLISECONDS( 10 ){phase_shift++;}
+        }
+        
+        EVERY_N_SECONDS( 20 ){
+            if(pattern == 4){
+                pattern = 0;
+            } else {
+                pattern++;
+            }
+            for(uint8_t y = 0; y < pheigth; y++){
+                for (uint8_t x = 0; x < pwidth; x++){
+                    Panels[y][x].off(leds);
+                }
+                
+            }
+            cnt = 0;    //reset cnt variable to prevent overflow
+        }
     }
     
-    EVERY_N_SECONDS( 20 ){
-        if(pattern == 4){
-            pattern = 0;
-        } else {
-            pattern++;
-        }
-        for(uint8_t y = 0; y < pheigth; y++){
-            for (uint8_t x = 0; x < pwidth; x++){
-                Panels[y][x].off(leds);
-            }
-            
-        }
-        cnt = 0;    //reset cnt variable to prevent overflow
-    }
     
 }

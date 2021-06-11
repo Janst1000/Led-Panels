@@ -9,4 +9,6 @@ void rain();
 
 void xydemo(uint8_t, int8_t, int8_t);
 
+void flag(CRGB colors[]);
+
 #endif
