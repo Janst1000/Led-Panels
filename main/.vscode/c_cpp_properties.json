@@ -3,17 +3,11 @@
     "configurations": [
         {
             "name": "Win32",
-            "compilerPath": "",
+            "compilerPath": "C:\\mingw-w64\\x86_64-8.1.0-win32-seh-rt_v6-rev0\\mingw64\\bin\\gcc.exe",
             "compilerArgs": [],
-            "intelliSenseMode": "msvc-x64",
+            "intelliSenseMode": "windows-gcc-x64",
             "includePath": [
-                "C:/Program Files (x86)/Arduino/libraries/**",
-                "C:/Program Files (x86)/Arduino/hardware/arduino/avr/cores/arduino/**",
-                "C:/Program Files (x86)/Arduino/hardware/tools/avr/avr/include/**",
-                "C:/Program Files (x86)/Arduino/hardware/tools/avr/include/**",
-                "C:/Program Files (x86)/Arduino/hardware/arduino/avr/variants/standard/**",
-                "C:/Users/janst/Documents/Arduino/libraries/**",
-                "${workspaceFolder}"
+                "${workspaceFolder}/**"
             ],
             "forcedInclude": [],
             "cStandard": "gnu17",
