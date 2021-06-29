@@ -5,6 +5,7 @@
 #include "Animations.h"
 #include "Flags.h"
 
+#define Epilepsy_Mode true
 
 const bool DEBUG = false;
 
@@ -154,18 +155,26 @@ void loop(){
             if(pattern == 5){
                 pattern = 0;
             } else {
-                //pattern++;
+                pattern++;
+            }
+            if(Epilepsy_Mode){  
+                //if there are more epilepsy heavy animation add them here
+                switch(pattern){
+                    case 2: {
+                        pattern = 3;
+                        break;
+                    }
+                    default: break;
+                }
             }
             for(uint8_t y = 0; y < pheigth; y++){
                 for (uint8_t x = 0; x < pwidth; x++){
                     Panels[y][x].off(leds);
                 }
-                
             }
             cnt = 0;    //reset cnt variable to prevent overflow
             Serial.println("reset");
         }
+    
     }
-    
-    
 }
