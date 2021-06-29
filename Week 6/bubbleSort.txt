@@ -1,0 +1,17 @@
+Bubble Sort(A, n)
+// setting the last swapped index to the array size
+last_swapped = n
+// setting swapped to true to intially enter the loop at least once
+swapped = true
+// repeating until we don't swap anything anymore
+while swapped == true
+	swapped = false
+	// going through the array to the last swapped item
+	for j = 1 to last last_swapped
+		// swapping items if left larger than right item
+		if A[j] > A[j + 1]
+			temp = A[j]
+			A[j] = A[j+1]
+			A[j+1] = temp
+			last_swapped = j
+			swapped = true
