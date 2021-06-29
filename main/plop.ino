@@ -9,7 +9,7 @@ void plop(CRGB color, int cnt, bool frame_array[pheigth][pwidth]){
     }
 }
 
-void frame_init(bool** frame_array){
+void frame_init(bool frame_array[pheigth][pwidth]){
     for(uint8_t y = 0; y < pheigth; y++){
         for(uint8_t x = 0; x < pwidth; x++){
             frame_array[y][x] = 0;

@@ -5,6 +5,7 @@
 #include "Animations.h"
 #include "Flags.h"
 
+
 const bool DEBUG = false;
 
 #define NUM_LEDS 75
@@ -52,9 +53,18 @@ const uint8_t PanelsTable[pwidth][pheigth][LED_PER_PANEL] = {
 Panel Panels[pwidth][pheigth];
 
 int phase_shift=0;
-int pattern=4;
+int pattern=5;
 CRGB temp_color  = CHSV(random(256), 255, 255);
 bool frame_array[pwidth][pheigth];
+
+
+CRGB prideflag[5] = { CHSV(206, 255, 200),CHSV(155, 255, 200),CHSV(104, 255, 200),CHSV(53, 255, 200),CHSV(2, 255, 255)};
+CRGB gay[5] = { CRGB(0x2600FF),CRGB(0x5049CC),CRGB(0xFFFFFF),CRGB(0x27CEAA),CRGB(0x078D70)};
+CRGB lesbian[5] { CRGB(0xA80068),CRGB(0xE04C99),CRGB(0xFFFFFF),CRGB(0xFF9B56),CRGB(0xD32E00)};
+CRGB bi[5] { CRGB(0x0038A8),CRGB(0x0038A8),CRGB(0xBC2FB2),CRGB(0xD60270),CRGB(0xD60270)};
+CRGB trans[5] { CRGB(0x14BDFF),CRGB(0xF76381),CRGB(0xFFFFFF),CRGB(0xF763F5),CRGB(0x0037FF)};
+
+CRGB *colors;
 
 void setup(){
 
@@ -72,17 +82,24 @@ void setup(){
     Serial.begin(115200);
     FastLED.setCorrection(TypicalSMD5050);
     FastLED.setTemperature(Tungsten100W);
+
+    colors = flag_select(cnt, colors);
 }
 
 void loop(){
     if(DEBUG == true){      //check if debug flag up top is set
-        CRGB colors[pheigth] = gay;
-        flag(colors);
-        FastLED.show();
-        FastLED.delay(1000/60);
 
     } else {
-        Serial.println(pattern);
+        if(pattern == 5){   //pride
+            flag_animation(colors, frame_array);
+            FastLED.show();
+            FastLED.delay(1000/60);
+            EVERY_N_SECONDS(4){
+                frame_init(frame_array);
+                colors = flag_select(cnt, colors);
+                cnt++;
+            }
+        }
         if(pattern == 4){   //plop
             Serial.println(cnt);
             plop(temp_color, cnt, frame_array);
@@ -134,10 +151,10 @@ void loop(){
         }
         
         EVERY_N_SECONDS( 20 ){
-            if(pattern == 4){
+            if(pattern == 5){
                 pattern = 0;
             } else {
-                pattern++;
+                //pattern++;
             }
             for(uint8_t y = 0; y < pheigth; y++){
                 for (uint8_t x = 0; x < pwidth; x++){
@@ -146,6 +163,7 @@ void loop(){
                 
             }
             cnt = 0;    //reset cnt variable to prevent overflow
+            Serial.println("reset");
         }
     }
     
