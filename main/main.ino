@@ -85,6 +85,7 @@ void setup(){
     FastLED.setTemperature(Tungsten100W);
 
     colors = flag_select(cnt, colors);
+    cnt++;
 }
 
 void loop(){
