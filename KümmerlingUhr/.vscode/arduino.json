@@ -1,0 +1,5 @@
+{
+    "board": "esp32:esp32:esp32doit-devkit-v1",
+    "sketch": "..\\main\\main.ino",
+    "port": "COM5"
+}
